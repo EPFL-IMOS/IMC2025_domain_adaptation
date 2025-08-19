@@ -11,8 +11,16 @@ September 1st, 2025 as part of the 9th Intelligent Maintenance Conference.
 git clone https://github.com/EPFL-IMOS/IMC2025_domain_adaptation.git
 ```
 
+1. Install [uv](https://github.com/astral-sh/uv) using the [official instructions](https://github.com/astral-sh/uv?tab=readme-ov-file#installation). We use `uv` to manage Python version and packages. ⚠️ **NOTE** ⚠️: if you cannot use
+Powershell on your machine, you can download the Windows installer from the [Github release](https://github.com/astral-sh/uv/releases/tag/0.8.12).
 
-1. Install [uv](https://github.com/astral-sh/uv) using the [official instructions](https://github.com/astral-sh/uv?tab=readme-ov-file#installation). We use `uv` to manage Python version and packages.
+```bash
+# On macOS and Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# On Windows
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
 
 2. Install Python 3.10 with `uv`:
 
@@ -30,9 +38,34 @@ cd IMC2025_domain_adaptation
 uv sync
 ```
 
+5. Activate the `python` virtual environment we just created. ⚠️ **NOTE** ⚠️: this must be ran
+everytime you open a new terminal.
+```bash
+source .venv/bin/activate
+``` 
+
+6. Install [Visual Studio Code](https://code.visualstudio.com/). We will use it as our
+development environment and code editor.
+
 ## 1 - Dataset Download
 
 The datasets can be downloaded [here](https://drive.switch.ch/index.php/s/t8EsC0pBNbyxtqs).
+Extract them at the root of the `IMC2025_domain_adaptation` directory. The folder structure
+should look like this:
+
+```
+.
+├── .venv
+├── .gitignore
+├── datasets/
+|   ├── gearbox/
+|   ├── mnist/
+|   ├── mnist_m/
+│   └── N-CMAPSS_DS02.csv
+├── LICENSE
+├── pyproject.toml
+└── uv.lock
+```
 
 ## 99 - Organizers only
 
