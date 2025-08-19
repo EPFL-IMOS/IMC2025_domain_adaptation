@@ -79,9 +79,14 @@ uv python install 3.10
 uv init imc2025
 
 # Install PyTorch (must be 2.4.0 for PyTorch Geometric 2.6.1)
-uv add torch==2.4.0
+uv add torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0
 uv add torch_geometric==2.6.1
 
+# On Windows and Linux, use the following line
+uv add pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.4.0+cpu.html
+# On macOS, use the following line
+uv add pyg_lib==0.4.0+pt24 torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.4.0+cpu.html
+
 # Install utility libraries
-uv add tqdm pandas numpy scipy seaborn matplotlib scikit_learn
+uv add tqdm pandas scipy seaborn matplotlib scikit_learn networkx tensorboard tensorboardX pyreadr neptune torchinfo gpustat yacs plotly ipykernel jupyter
 ```
