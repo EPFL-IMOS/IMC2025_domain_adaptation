@@ -1,0 +1,17 @@
+[project]
+name = "imc2025"
+version = "0.1.0"
+description = "Intelligent Maintenance Conference 2025 Workshop on Domain Adaptation"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib>=3.10.5",
+    "numpy>=2.2.6",
+    "pandas>=2.3.1",
+    "scikit-learn>=1.7.1",
+    "scipy>=1.15.3",
+    "seaborn>=0.13.2",
+    "torch==2.4.0",
+    "torch-geometric==2.6.1",
+    "tqdm>=4.67.1",
+]
