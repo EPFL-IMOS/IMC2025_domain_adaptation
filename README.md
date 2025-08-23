@@ -59,8 +59,7 @@ should look like this:
 ├── .gitignore
 ├── datasets/
 |   ├── gearbox/
-|   ├── mnist/
-|   ├── mnist_m/
+|   ├── mnist_dataset/
 │   └── N-CMAPSS_DS02.csv
 ├── LICENSE
 ├── pyproject.toml
