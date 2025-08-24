@@ -81,11 +81,56 @@ uv init imc2025
 uv add torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0
 uv add torch_geometric==2.6.1
 
-# On Windows and Linux, use the following line
-uv add pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.4.0+cpu.html
-# On macOS, use the following line
-uv add pyg_lib==0.4.0+pt24 torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.4.0+cpu.html
-
 # Install utility libraries
-uv add tqdm pandas scipy seaborn matplotlib scikit_learn networkx tensorboard tensorboardX pyreadr neptune torchinfo gpustat yacs plotly ipykernel jupyter
+uv add tqdm pandas scipy seaborn matplotlib scikit_learn networkx tensorboard tensorboardX pyreadr neptune torchinfo gpustat yacs plotly ipykernel jupyter librosa h5py
 ```
+
+Additional manual modifications to `pyproject.toml` are required to fully enable PyTorch Geometric:
+
+1. Add the following to pyproject.toml to limit the project to macOS, Linux, and Windows
+
+```toml
+[tool.uv]
+environments = [
+    "sys_platform == 'darwin'",
+    "sys_platform == 'linux'",
+    "sys_platform == 'windows'",
+]
+```
+
+2. Add the following to pyproject.toml to select the right pyg_lib version depending on the platform
+
+```toml
+[tool.uv.sources]
+pyg_lib = [
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/pyg_lib-0.4.0%2Bpt24-cp310-cp310-macosx_14_0_universal2.whl", marker = "sys_platform == 'darwin'" },
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/pyg_lib-0.4.0%2Bpt24cpu-cp310-cp310-linux_x86_64.whl", marker = "sys_platform == 'linux'" },
+  { url = "https://data.pyg.org/whl/torch-2.4.0%2Bcpu/pyg_lib-0.4.0%2Bpt24cpu-cp310-cp310-win_amd64.whl", marker = "sys_platform == 'windows'" },
+]
+```
+
+3. Manually add `pyg_lib`, `torch-cluster`, `torch-scatter`, `torch-sparse`, and `torch-spline-conv` as dependency
+
+```toml
+dependencies = [
+    ...,
+    "pyg_lib==0.4.0",
+    "torch-cluster>=1.6.3",
+    "torch-scatter>=2.1.2",
+    "torch-sparse>=0.6.18",
+    "torch-spline-conv>=1.2.2",
+    ...
+]
+```
+
+4. Add the following to pyproject.toml to select the right `pyg_lib` version depending on the platform
+
+```toml
+[tool.uv.extra-build-dependencies]
+torch-cluster = ["torch"]
+torch-scatter = ["torch"]
+torch-sparse = ["torch"]
+torch-spline-conv = ["torch"]
+```
+
+5. Run `uv sync` to compile the `uv` environment.
