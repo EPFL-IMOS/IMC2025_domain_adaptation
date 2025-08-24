@@ -6,14 +6,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def test(model, test_loader):
-    device_model = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
+def test(model, test_loader, device):
     test_loss = 0
     correct = 0
     with torch.no_grad():
         for data, target in test_loader:
-            data, target = data.to(device_model), target.to(device_model)
+            data, target = data.to(device), target.to(device)
             output, _ = model(data)
             test_loss += F.nll_loss(output, target, size_average=False).item()
             pred = output.data.max(1, keepdim=True)[1]
