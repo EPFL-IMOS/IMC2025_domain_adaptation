@@ -56,13 +56,16 @@ should look like this:
 ```
 .
 ├── .venv
-├── .gitignore
+├── checkpoints/
 ├── datasets/
 |   ├── gearbox/
 |   ├── mnist_dataset/
 │   └── N-CMAPSS_DS02.csv
+├── notebooks/
+├── .gitignore
 ├── LICENSE
 ├── pyproject.toml
+├── README.md
 └── uv.lock
 ```
 
