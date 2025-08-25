@@ -16,11 +16,35 @@ def test(model, test_loader, device):
             test_loss += F.nll_loss(output, target, size_average=False).item()
             pred = output.data.max(1, keepdim=True)[1]
             correct += pred.eq(target.data.view_as(pred)).sum()
-    print('{}/{} ({:.0f}%)\n'.format(correct, len(test_loader.dataset), 100. * correct / len(test_loader.dataset)))
+    print(
+        "{}/{} ({:.0f}%)\n".format(
+            correct,
+            len(test_loader.dataset),
+            100.0 * correct / len(test_loader.dataset),
+        )
+    )
 
 
-def tensors_as_images(tensors, nrows=1, figsize=(8, 8), titles=[],
-                      wspace=0.1, hspace=0.2, cmap=None):
+def test_with_return(model, dataloader, device):
+    model.eval()
+    correct = 0
+    total = 0
+
+    with torch.no_grad():
+        for data, target in dataloader:
+            data, target = data.to(device), target.to(device)
+            output, _ = model(data)
+            pred = output.argmax(dim=1, keepdim=True)
+            correct += pred.eq(target.view_as(pred)).sum().item()
+            total += target.size(0)
+
+    accuracy = correct / total
+    return accuracy
+
+
+def tensors_as_images(
+    tensors, nrows=1, figsize=(8, 8), titles=[], wspace=0.1, hspace=0.2, cmap=None
+):
     """
     Plots a sequence of pytorch tensors as images.
     :param tensors: A sequence of pytorch tensors, should have shape CxWxH
@@ -31,9 +55,13 @@ def tensors_as_images(tensors, nrows=1, figsize=(8, 8), titles=[],
 
     ncols = math.ceil(num_tensors / nrows)
 
-    fig, axes = plt.subplots(nrows=nrows, ncols=ncols, figsize=figsize,
-                             gridspec_kw=dict(wspace=wspace, hspace=hspace),
-                             subplot_kw=dict(yticks=[], xticks=[]))
+    fig, axes = plt.subplots(
+        nrows=nrows,
+        ncols=ncols,
+        figsize=figsize,
+        gridspec_kw=dict(wspace=wspace, hspace=hspace),
+        subplot_kw=dict(yticks=[], xticks=[]),
+    )
     axes_flat = axes.reshape(-1)
 
     # Plot each tensor
@@ -58,13 +86,14 @@ def tensors_as_images(tensors, nrows=1, figsize=(8, 8), titles=[],
 
     # If there are more axes than tensors, remove their frames
     for j in range(num_tensors, len(axes_flat)):
-        axes_flat[j].axis('off')
+        axes_flat[j].axis("off")
 
     return fig, axes
 
 
-def dataset_first_n(dataset, n, show_classes=False, class_labels=None,
-                    random_start=True, **kw):
+def dataset_first_n(
+    dataset, n, show_classes=False, class_labels=None, random_start=True, **kw
+):
     """
     Plots first n images of a dataset containing tensor images.
     """
