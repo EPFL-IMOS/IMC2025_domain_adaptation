@@ -1,5 +1,11 @@
 # IMC 2025 - Domain Adaptation Workshop
 
+<p align="center">
+    <img src="./media/EPFL_Logo_Digital_RGB_PROD.png" alt="EPFL logo" width="200"/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <img src="./media/IMOS.png" alt="IMOS logo" width="200"/>
+</p>
+
 This repository contains the code for the *Domain Adaptation* workshop held on 
 September 1st, 2025 as part of the 9th Intelligent Maintenance Conference.
 
