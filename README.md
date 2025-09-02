@@ -17,14 +17,19 @@ September 1st, 2025 as part of the 9th Intelligent Maintenance Conference.
 git clone https://github.com/EPFL-IMOS/IMC2025_domain_adaptation.git
 ```
 
-1. Install [uv](https://github.com/astral-sh/uv) using the [official instructions](https://github.com/astral-sh/uv?tab=readme-ov-file#installation). We use `uv` to manage Python version and packages. ⚠️ **NOTE** ⚠️: if you cannot use
-Powershell on your machine, you can download the Windows installer from the [Github release](https://github.com/astral-sh/uv/releases/tag/0.8.12).
+1. Install [uv](https://github.com/astral-sh/uv) using the 
+[official instructions](https://github.com/astral-sh/uv?tab=readme-ov-file#installation).
+We use `uv` to manage Python version and packages. ⚠️ **NOTE** ⚠️: if you cannot use
+Powershell on your machine, you can download the x86_64 Windows installer from the
+[Github release](https://github.com/astral-sh/uv/releases/tag/0.8.12). 🚨 **WARNING**: On
+Windows make sure you open 64-bits Powershell terminals, and not 32-bits
+~~Powershell(x86)~~ terminals.
 
 ```bash
 # On macOS and Linux
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# On Windows
+# On Windows (MUST BE 64-bits Powershell)
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
